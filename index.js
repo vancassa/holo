@@ -1,5 +1,6 @@
 const { getSubscribers } = require("./holosub");
 const fs = require("fs");
+const schedule = require("node-schedule");
 
 const saveSubsData = async () => {
   const subs = await getSubscribers();
@@ -13,4 +14,6 @@ const saveSubsData = async () => {
   });
 };
 
-saveSubsData();
+schedule.scheduleJob("0 0 * * *", () => {
+  saveSubsData();
+}); // run everyday at midnight
